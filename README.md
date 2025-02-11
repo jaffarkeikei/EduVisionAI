@@ -21,7 +21,7 @@
 
 Large class sizes, particularly in rural or underprivileged regions (e.g., parts of Africa), pose a critical challenge:
 - **One teacher** may be responsible for **hundreds of students**.
-- **Exam grading** can take **weeks**, delaying valuable feedback.
+- **Exam feedback** can take time, delaying valuable insights.
 - **Personalized recommendations** for each student are rarely provided.
 - **Parents** often only see final marks, with no clear direction for improvement.
 
