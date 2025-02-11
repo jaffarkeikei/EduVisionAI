@@ -17,6 +17,7 @@ function App() {
 
   const handleLogout = () => {
     setUser(null)
+    localStorage.removeItem('token')
   }
 
   if (!user) {
@@ -33,11 +34,10 @@ function App() {
 
   return (
     <div className={`container ${theme}`}>
-      {!user ? (
-        <Auth onLogin={handleLogin} />
-      ) : (
-        <Dashboard user={user} />
-      )}
+      <Dashboard 
+        user={user} 
+        onLogout={handleLogout}
+      />
     </div>
   )
 }

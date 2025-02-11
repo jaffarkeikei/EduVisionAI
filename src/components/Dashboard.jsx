@@ -5,7 +5,7 @@ import ExamForm from './ExamForm'
 import ExamList from './ExamList'
 import { students as studentsApi, exams as examsApi } from '../services/api'
 
-function Dashboard({ user }) {
+function Dashboard({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState('overview')
   const [studentsList, setStudentsList] = useState([])
   const [showStudentForm, setShowStudentForm] = useState(false)
@@ -90,7 +90,15 @@ function Dashboard({ user }) {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2>welcome, {user.name}</h2>
+        <div className="header-top">
+          <h2>Welcome, {user.name}</h2>
+          <button 
+            className="logout-button"
+            onClick={onLogout}
+          >
+            Logout
+          </button>
+        </div>
         <div className="tab-navigation">
           <button 
             className={`tab-button ${activeTab === 'overview' ? 'active' : ''}`}
