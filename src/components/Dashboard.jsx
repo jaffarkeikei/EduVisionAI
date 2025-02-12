@@ -34,10 +34,12 @@ function Dashboard({ user, onLogout }) {
   const handleAddStudent = async (newStudent) => {
     try {
       const response = await studentsApi.create(newStudent)
-      setStudentsList([...studentsList, response.data])
+      setStudentsList([...studentsList, response.data.student])
       setShowStudentForm(false)
+      alert('Student added successfully!')
     } catch (error) {
-      console.error('Error adding student:', error)
+      const errorMessage = error.response?.data?.message || 'Error adding student'
+      alert(errorMessage)
     }
   }
 
@@ -59,11 +61,16 @@ function Dashboard({ user, onLogout }) {
 
   const handleAddExam = async (newExam) => {
     try {
+      console.log('Adding exam in Dashboard:', newExam) // Debug log
       const response = await examsApi.create(newExam)
-      setExamsList([...examsList, response.data])
+      console.log('Server response:', response) // Debug log
+      
+      setExamsList([...examsList, response.data.exam])
       setShowExamForm(false)
+      alert(response.data.message) // Show success message
     } catch (error) {
-      console.error('Error adding exam:', error)
+      console.error('Error adding exam:', error.response || error)
+      alert(error.response?.data?.message || 'Error adding exam')
     }
   }
 
@@ -91,7 +98,7 @@ function Dashboard({ user, onLogout }) {
     <div className="dashboard">
       <div className="dashboard-header">
         <div className="header-top">
-          <h2>Welcome, {user.name}</h2>
+          <h2>welcome, {user.name}</h2>
           <button 
             className="logout-button"
             onClick={onLogout}

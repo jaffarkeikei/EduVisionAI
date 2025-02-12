@@ -14,7 +14,7 @@ const studentSchema = new mongoose.Schema({
   studentId: {
     type: String,
     required: true,
-    unique: true
+    trim: true
   },
   grade: {
     type: String,
@@ -35,5 +35,8 @@ const studentSchema = new mongoose.Schema({
 }, {
   timestamps: true
 })
+
+// Compound index to ensure studentId is unique per teacher
+studentSchema.index({ studentId: 1, createdBy: 1 }, { unique: true })
 
 module.exports = mongoose.model('Student', studentSchema) 

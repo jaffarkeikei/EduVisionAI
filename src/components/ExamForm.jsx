@@ -1,23 +1,33 @@
 import { useState } from 'react'
 
-function ExamForm({ onSubmit, onCancel }) {
-  const [examData, setExamData] = useState({
+function ExamForm({ onSubmit, onCancel, editingExam }) {
+  const [examData, setExamData] = useState(editingExam || {
     title: '',
     subject: '',
     date: '',
     totalMarks: '',
     grade: '',
-    description: ''
+    description: '',
+    status: 'pending'
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    onSubmit({
-      ...examData,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-      status: 'pending' // pending, in-progress, completed
-    })
+    try {
+      console.log('Submitting exam data:', examData) // Debug log
+      
+      // Format date to ISO string if it exists
+      const formattedData = {
+        ...examData,
+        date: examData.date ? new Date(examData.date).toISOString() : '',
+        totalMarks: Number(examData.totalMarks)
+      }
+
+      await onSubmit(formattedData)
+    } catch (error) {
+      console.error('Error in ExamForm:', error)
+      alert(error.response?.data?.message || 'Failed to save exam')
+    }
   }
 
   return (
@@ -31,25 +41,20 @@ function ExamForm({ onSubmit, onCancel }) {
             required
             value={examData.title}
             onChange={(e) => setExamData({...examData, title: e.target.value})}
-            placeholder="e.g., Midterm Mathematics"
+            placeholder="e.g., Midterm Mathematics Exam"
           />
         </div>
 
         <div className="form-group">
           <label htmlFor="subject">Subject *</label>
-          <select
+          <input
             id="subject"
+            type="text"
             required
             value={examData.subject}
             onChange={(e) => setExamData({...examData, subject: e.target.value})}
-          >
-            <option value="">Select Subject</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Science">Science</option>
-            <option value="English">English</option>
-            <option value="History">History</option>
-            <option value="Geography">Geography</option>
-          </select>
+            placeholder="e.g., Mathematics"
+          />
         </div>
 
         <div className="form-group">
@@ -58,6 +63,7 @@ function ExamForm({ onSubmit, onCancel }) {
             id="date"
             type="date"
             required
+            min={new Date().toISOString().split('T')[0]} // Prevent past dates
             value={examData.date}
             onChange={(e) => setExamData({...examData, date: e.target.value})}
           />
@@ -69,9 +75,11 @@ function ExamForm({ onSubmit, onCancel }) {
             id="totalMarks"
             type="number"
             required
-            min="0"
+            min="1"
+            max="1000"
             value={examData.totalMarks}
             onChange={(e) => setExamData({...examData, totalMarks: e.target.value})}
+            placeholder="e.g., 100"
           />
         </div>
 
@@ -83,8 +91,21 @@ function ExamForm({ onSubmit, onCancel }) {
             required
             value={examData.grade}
             onChange={(e) => setExamData({...examData, grade: e.target.value})}
-            placeholder="e.g., Grade 10-A"
+            placeholder="e.g., Grade 10A"
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="status">Status</label>
+          <select
+            id="status"
+            value={examData.status}
+            onChange={(e) => setExamData({...examData, status: e.target.value})}
+          >
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
 
         <div className="form-group full-width">
@@ -95,6 +116,7 @@ function ExamForm({ onSubmit, onCancel }) {
             onChange={(e) => setExamData({...examData, description: e.target.value})}
             placeholder="Add any additional details about the exam"
             rows="3"
+            maxLength="500"
           />
         </div>
       </div>
@@ -104,7 +126,7 @@ function ExamForm({ onSubmit, onCancel }) {
           Cancel
         </button>
         <button type="submit" className="primary-button">
-          Create Exam
+          {editingExam ? 'Update Exam' : 'Create Exam'}
         </button>
       </div>
     </form>

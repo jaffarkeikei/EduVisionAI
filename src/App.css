@@ -326,22 +326,158 @@ button {
   cursor: pointer;
 }
 
+.student-list-container {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.student-list {
+  min-width: 100%;
+}
+
 .student-list table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  white-space: nowrap;
 }
 
 .student-list th,
 .student-list td {
-  padding: 0.75rem;
+  padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .student-list th {
-  background-color: #f8f9fa;
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.student-list tr:hover {
+  background-color: #f9fafb;
+}
+
+.gender-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.875rem;
   font-weight: 500;
+}
+
+.gender-badge.male {
+  background-color: #DBEAFE;
+  color: #1E40AF;
+}
+
+.gender-badge.female {
+  background-color: #FCE7F3;
+  color: #9D174D;
+}
+
+.gender-badge.other {
+  background-color: #E5E7EB;
+  color: #374151;
+}
+
+.gender-badge.not-specified {
+  background-color: #F3F4F6;
+  color: #6B7280;
+}
+
+.email-cell {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-cell:hover {
+  overflow: visible;
+  white-space: normal;
+  word-break: break-all;
+  background-color: #f9fafb;
+  position: relative;
+  z-index: 1;
+}
+
+.student-list tr td:empty::before {
+  content: "-";
+  color: #9CA3AF;
+}
+
+@media (max-width: 768px) {
+  .student-list th,
+  .student-list td {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+  }
+
+  .gender-badge {
+    padding: 2px 6px;
+    font-size: 0.75rem;
+  }
+
+  .email-cell {
+    max-width: 150px;
+  }
+}
+
+.student-list-container.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.student-list-empty {
+  padding: 2rem;
+  text-align: center;
+  color: #6B7280;
+}
+
+.student-list th {
+  cursor: pointer;
+  position: relative;
+  padding-right: 25px; /* Space for sort indicator */
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.student-list th:hover {
+  background-color: #f3f4f6;
+}
+
+.student-list th.sort-ascending::after {
+  content: " ↑";
+  position: absolute;
+  right: 8px;
+  color: #3B82F6;
+}
+
+.student-list th.sort-descending::after {
+  content: " ↓";
+  position: absolute;
+  right: 8px;
+  color: #3B82F6;
+}
+
+/* Add hover effect to indicate sortable columns */
+.student-list th:hover::after {
+  content: " ↕";
+  position: absolute;
+  right: 8px;
+  opacity: 0.5;
+}
+
+.student-list th.sort-ascending:hover::after,
+.student-list th.sort-descending:hover::after {
+  opacity: 1;
 }
 
 .icon-button {
@@ -449,4 +585,124 @@ button {
   margin: 0;
   font-size: 1.5rem;
   color: #1f2937;
+}
+
+/* Exam List Styles */
+.exam-list-container {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.exam-list {
+  min-width: 100%;
+}
+
+.exam-list table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.exam-list th,
+.exam-list td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.exam-list th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.exam-list tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-badge.pending {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.status-badge.in-progress {
+  background-color: #DBEAFE;
+  color: #1E40AF;
+}
+
+.status-badge.completed {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+/* Description Cell */
+.description-cell {
+  max-width: 300px;
+  white-space: normal;
+}
+
+.description-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #6B7280;
+}
+
+/* Action Buttons */
+.actions-cell {
+  white-space: nowrap;
+}
+
+.icon-button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.icon-button.primary {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.icon-button.primary:hover {
+  background-color: #2563EB;
+}
+
+.icon-button.delete {
+  background-color: #EF4444;
+  color: white;
+}
+
+.icon-button.delete:hover {
+  background-color: #DC2626;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .exam-list th,
+  .exam-list td {
+    padding: 8px 12px;
+  }
+  
+  .icon-button {
+    padding: 4px 8px;
+    margin: 0 2px;
+  }
 }

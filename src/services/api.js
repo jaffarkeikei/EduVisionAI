@@ -56,7 +56,17 @@ export const auth = {
 
 export const students = {
   getAll: () => api.get('/students'),
-  create: (studentData) => api.post('/students', studentData),
+  create: async (studentData) => {
+    console.log('Sending student data to server:', studentData) // Debug log
+    try {
+      const response = await api.post('/students', studentData)
+      console.log('Server response:', response) // Debug log
+      return response
+    } catch (error) {
+      console.error('API error:', error.response || error)
+      throw error
+    }
+  },
   update: (id, studentData) => api.put(`/students/${id}`, studentData),
   delete: (id) => api.delete(`/students/${id}`)
 }

@@ -15,16 +15,17 @@ function StudentForm({ onSubmit, onCancel, editingStudent }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // Remove the id and createdAt fields as they're handled by MongoDB
+      console.log('Submitting student data:', studentData) // Debug log
+      
       const studentToSubmit = {
         ...studentData,
-        dateOfBirth: studentData.dateOfBirth || undefined // Only include if it has a value
+        dateOfBirth: studentData.dateOfBirth || undefined
       }
       
       await onSubmit(studentToSubmit)
       // Form will be closed by the parent component after successful submission
     } catch (error) {
-      console.error('Error submitting student:', error)
+      console.error('Error in StudentForm:', error)
       alert('Failed to save student. Please try again.')
     }
   }
