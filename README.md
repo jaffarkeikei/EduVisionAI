@@ -1,4 +1,4 @@
-# AI-Powered Personalized Feedback for Education in Underprivileged Areas
+# AI-Powered Personalized Feedback for Education
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -20,7 +20,7 @@
 ## Introduction
 
 Large class sizes, particularly in rural or underprivileged regions (e.g., parts of Africa), pose a critical challenge:
-- **One teacher** may be responsible for **hundreds of students**.
+- **One teacher** may be responsible for **several of students**.
 - **Exam feedback** can take time, delaying valuable insights.
 - **Personalized recommendations** for each student are rarely provided.
 - **Parents** often only see final marks, with no clear direction for improvement.
@@ -32,7 +32,7 @@ This project aims to **bridge the feedback gap** by leveraging **AI-driven analy
 ## Key Problem Statement
 
 1. **Slow, Manual Grading**: Teachers spend hours or days manually marking exams and recording scores.  
-2. **Minimal Student Insights**: With large class sizes, meaningful individual feedback for each student is rarely possible. Teachers in rural/underprivileged schools (e.g., 200+ students per class) spend weeks grading exams and writing generic feedback.
+2. **Minimal Student Insights**: With large class sizes, meaningful individual feedback for each student is rarely possible. Areas with high student-teacher ratio are the best use case for this project, especially rural/underprivileged schools (e.g., 200+ students per class) where teachers spend weeks grading exams and writing generic feedback.
 3. **Lack of Historical/Comparative Data**: Students’ performance trends over time remain hidden; class-level comparisons are unavailable or difficult to compute. Students receive no actionable insights into their strengths/weaknesses or longitudinal progress tracking. 
 4. **Parent Engagement**: Parents do not receive timely, in-depth information to help their children improve. Parents lack visibility into their child’s academic journey beyond basic grades.
 
@@ -83,12 +83,16 @@ This isn’t just an app—it’s a movement to democratize personalized educati
 
 Below is a high-level architecture diagram (conceptual):
 +————+         +—————–+            +—————–+
-|  Teacher   |         |   Frontend UI   |            |  AI Analysis    |
+|  Teacher   |         |   Frontend UI   |            |  
+
+AI Analysis    |
 |  (Input)   +—–>—+ (Web / Mobile)  +—–>——>  & Feedback Gen |
 +————+         +———^—––+            +––––^––––+
 |                           |
 |                           v
-+—————––> Data Storage
++—————––> D
+
+ata Storage
 (Database / CSV)
 
 ### 1. Data Ingestion Layer
